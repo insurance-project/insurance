@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.insurance.dao.InsuranceDao">
+<insert id="InsertInsurance"
+      parameterType="com.insurance.model.Insurance" useGeneratedKeys="true"
+      keyProperty="InsuranceID">
+      insert into Insurance (
+      InsuranceName, Premium,
+      Warranty, RewardCost, Kind, PremiumRate, RewardRate
+      ) values(
+      #{InsuranceName},
+      #{Premium},
+      #{Warranty}, #{RewardCost},
+      #{Kind}, #{PremiumRate}, #{RewardRate}
+      )
+   </insert>
+</mapper>
