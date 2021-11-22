@@ -6,10 +6,10 @@ public class Insurance implements Cloneable {
 
 	//Attributes
 	private int id;	
-	private enum eInsKind{CAR,DEATH,FIRE,MEDICAL,MIXED,SURVIVAL};
-	private eInsKind eKind;
+//	private enum eInsKind{CAR,DEATH,FIRE,MEDICAL,MIXED,SURVIVAL};
+//	private eInsKind eKind;
 	private String insuranceName;
-	private int kind;
+	private String kind;
 	private int premium;
 	private int warranty;
 	private int rewardCost;
@@ -127,58 +127,58 @@ public class Insurance implements Cloneable {
 		this.allow = allow;
 	}
 
-	public boolean setInsKind(int kind) {	
-		switch(kind)
-		{
-			case 1:
-				this.eKind = eKind.CAR;
-				break;
-			case 2:
-				this.eKind = eKind.DEATH;
-				break;
-			case 3:
-				this.eKind = eKind.FIRE;
-				break;
-			case 4:
-				this.eKind = eKind.MEDICAL;
-				break;
-			case 5:
-				this.eKind = eKind.MIXED;
-				break;
-			case 6:
-				this.eKind = eKind.SURVIVAL;
-			default:
-				System.out.println("�߸��� ���ڸ� �Է��ϼ̽��ϴ�.");
-				return false;						
-		}
-		return true;
-	}
+//	public boolean setInsKind(int kind) {	
+//		switch(kind)
+//		{
+//			case 1:
+//				this.eKind = eKind.CAR;
+//				break;
+//			case 2:
+//				this.eKind = eKind.DEATH;
+//				break;
+//			case 3:
+//				this.eKind = eKind.FIRE;
+//				break;
+//			case 4:
+//				this.eKind = eKind.MEDICAL;
+//				break;
+//			case 5:
+//				this.eKind = eKind.MIXED;
+//				break;
+//			case 6:
+//				this.eKind = eKind.SURVIVAL;
+//			default:
+//				System.out.println("�߸��� ���ڸ� �Է��ϼ̽��ϴ�.");
+//				return false;						
+//		}
+//		return true;
+//	}
 	
 	public void PrintInsuranceInfo()
 	{
 		System.out.println("�����̸�:"+this.insuranceName);		
 		String sKind = null;
-		switch(this.kind)
-		{
-		case 1:
-			sKind = "����";
-			break;
-		case 2:
-			sKind = "���";
-			break;
-		case 3:
-			sKind = "ȥ��";
-			break;
-		case 4:
-			sKind = "�ڵ���";
-			break;
-		case 5:
-			sKind = "ȭ��";
-			break;
-		case 6:
-			sKind = "�Ƿ�";
-			break;
-		}
+//		switch(this.kind)
+//		{
+//		case 1:
+//			sKind = "����";
+//			break;
+//		case 2:
+//			sKind = "���";
+//			break;
+//		case 3:
+//			sKind = "ȥ��";
+//			break;
+//		case 4:
+//			sKind = "�ڵ���";
+//			break;
+//		case 5:
+//			sKind = "ȭ��";
+//			break;
+//		case 6:
+//			sKind = "�Ƿ�";
+//			break;
+//		}
 		System.out.println("��������:"+sKind);		
 		System.out.println("�����"+this.premium);
 		System.out.println("�������"+this.premiumRate);
@@ -186,14 +186,14 @@ public class Insurance implements Cloneable {
 		System.out.println("����Ⱓ"+this.warranty);
 		System.out.println("����ݾ�"+this.rewardCost);	
 	}	
-	
-	public boolean CheckKindIns()
-	{
-		if(this.getKind()>=4&&this.getKind()<=6)
-			return false;
-		else
-			return true;//true=������ false=���غ���
-	}		
+//	
+//	public boolean CheckKindIns()
+//	{
+//		if(this.getKind()>=4&&this.getKind()<=6)
+//			return false;
+//		else
+//			return true;//true=������ false=���غ���
+//	}		
 	
 	public boolean JudgeInsurance(Customer cus)
 	{
@@ -217,11 +217,11 @@ public class Insurance implements Cloneable {
 		
 	}
 
-	public int getKind() {
+	public String getKind() {
 		return kind;
 	}
 
-	public void setKind(int kind) {
+	public void setKind(String kind) {
 		this.kind = kind;
 	}
 

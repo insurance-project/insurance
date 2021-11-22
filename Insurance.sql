@@ -3,6 +3,7 @@ create database Insurance;
 use Insurance;
 show tables;
 
+select * from insurance;
 /*insurance, customer, contract, accident, reward, */
 
 create table insurance (
@@ -11,7 +12,7 @@ InsuranceName varchar(30) not null,
 Premium int not null,
 Warranty int not null,
 RewardCost int not null,
-Kind int not null,
+Kind varchar(30) not null,
 PremiumRate float not null,
 RewardRate float not null
 );

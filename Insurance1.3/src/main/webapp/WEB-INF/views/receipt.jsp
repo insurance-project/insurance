@@ -24,7 +24,7 @@
 			</div>
 			
 			<fieldset class="row mb-3">
-				<legend class="col-form-label col-sm-3 pt-0">사고 종류</legend>
+				<legend class="col-form-label col-sm-3 pt-0">보험 종류</legend>
 				<div class="col-sm-9">
 					<div class="form-check">
 						<input class="form-check-input" type="radio" name="gridRadios" id="car" value="Car" checked> 

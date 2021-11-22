@@ -2,9 +2,9 @@ package com.insurance.model.insurance;
 
 public class PredictProfit {
 
-	private int profit;
-	private int subscribers;
-	private int totalProfit;
+	private int profit; // 이익 = 보험료
+	private int subscribers; // 예상 가입자수
+	private int totalProfit; // profit * subscribers
 	
 	public PredictProfit()
 	{

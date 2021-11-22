@@ -23,8 +23,8 @@
 			<li class="topMenu"><a href="#">보험 설계</a>
 				<ul class="subMenu">
 					<li><a href="design">보험 설계</a></li>
-					<li><a href="salesOpen">판매 실적 열람</a></li>
 					<li><a href="insuranceList">보험 정보 수정</a></li>
+					
 				</ul>
 			</li>
 			<li class="topMenu"><a href="#">U/W</a>
@@ -35,9 +35,10 @@
 			</li>
 			<li class="topMenu"><a href="#">영업</a>
 				<ul class="subMenu">
-					<li><a href="#">고객 정보 열람</a></li>
 					<li><a href="#">고객 정보 입력</a></li>
 					<li><a href="#">보험 계약</a></li>
+					<li><a href="#">고객 정보 열람</a></li>
+					<li><a href="salesOpen">판매 실적 열람</a></li>
 				</ul>
 			</li>
 			<li class="topMenu"><a href="#">사고 처리</a>
