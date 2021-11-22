@@ -1,3 +1,4 @@
+drop database Insurance;
 create database Insurance;
 use Insurance;
 show tables;
@@ -5,7 +6,7 @@ show tables;
 /*insurance, customer, contract, accident, reward, */
 
 create table insurance (
-InsuranceID int auto_increment not null primary key,
+ID int auto_increment not null primary key,
 InsuranceName varchar(30) not null,
 Premium int not null,
 Warranty int not null,
@@ -16,7 +17,8 @@ RewardRate float not null
 );
 
 create table customer (
-customerID int auto_increment not null primary key,
+ID int auto_increment not null primary key,
+customerAge int not null,
 customerJob varchar(30) not null,
 customerName varchar(30) not null,
 customerGender varchar(30) not null,
