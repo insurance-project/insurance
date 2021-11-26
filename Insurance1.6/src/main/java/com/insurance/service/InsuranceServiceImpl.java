@@ -1,0 +1,26 @@
+package com.insurance.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.insurance.dao.InsuranceDAO;
+import com.insurance.model.insurance.Insurance;
+
+@Service
+public class InsuranceServiceImpl implements InsuranceService{
+	@Autowired
+	InsuranceDAO insuranceDAO;
+	
+	@Override
+	public void InsertInsurance(Insurance insurance) throws Exception {
+		insuranceDAO.InsertInsurance(insurance);
+	}
+
+	@Override
+	public List<Insurance> SelectInsuranceList() throws Exception {
+		return insuranceDAO.SelectInsuranceList();
+	}
+
+}
