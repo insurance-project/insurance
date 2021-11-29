@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mappers.SalePerformMapper">
+
+	<insert id="InsertSalePerform"
+      parameterType="com.insurance.model.insurance.SalePerform">
+      INSERT INTO SalePerform (
+      profit
+      ) VALUES (
+      #{profit}
+      )
+   </insert>
+   
+   <update id="UpdateSalePerform" parameterType="com.insurance.model.insurance.SalePerform">
+     update salePerform set profit = #{profit} 
+     where salePerformID = #{salePerformID}
+   </update>
+   
+   <delete id="DeleteSalePerform" parameterType="int">
+      delete from salePerform
+      where salePerformID = #{salePerformID}
+   </delete>
+   
+    <select id="SelectSalePerformInfo"
+      resultType="com.insurance.model.insurance.SalePerform">
+      select salePerformID, profit, subscribers
+      from salePerform 
+      where salePerformID = #{salePerformID}
+   </select>
+   
+    <update id="updateSubscribers" parameterType="com.insurance.model.insurance.SalePerform">
+     update salePerform set subscribers = #{subscribers},
+     totalProfit = #{totalProfit}
+     where salePerformID = #{salePerformID}
+   </update>
+   B = insurance
+   	<resultMap type="com.insurance.model.insurance.Insurance" id="Insurance">
+	    <result column="insuranceID" property="insuranceID"/>
+	    <result column="insuranceName" property="insuranceName"/>
+	    <result column="kind" property="kind"/>
+	</resultMap>
+	 
+	<resultMap type="com.insurance.model.insurance.SalePerform" id="SalePerform">
+	    <result column="salePerformID" property="salePerformID"/>
+	    <result column="profit" property="profit"/>
+	    <result column="subscribers" property="subscribers"/>
+	    <result column="totalProfit" property="totalProfit"/>
+	    <collection property="Insurance" resultMap="Insurance"/>
+	</resultMap>
+	 
+	<select id="SelectInsuranceSaleInfo" parameterType="SalePerform" resultMap="SalePerform">
+	   	select DISTINCT insurance.insuranceID, insurance.insuranceName, insurance.kind, salePerform.profit, salePerform.subscribers, salePerform.totalProfit
+		from insurance
+        left join salePerform on insurance.salePerformID = salePerform.salePerformID
+        where salePerform.salePerformID = #{salePerformID}
+	</select>
+	   
+   
+   <select id="SelectInsuranceSaleInfo"
+      resultType="com.insurance.model.insurance.SalePerform">
+      
+   </select>
+   
+   
+</mapper>

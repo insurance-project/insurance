@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.insurance.dao.ContractDAO">
+   <!-- 계약 하기 -->
+   <insert id="InsertContractInfo" parameterType="com.insurance.model.contract.Contract">
+		insert into contract( customerID, insuranceID	) 
+		values ( #{customerID}, #{insuranceID} )
+   </insert>
+ 
+ 	<!-- 전체 계약 보기 -->
+   <select id="CustomerContractList" resultType="com.insurance.model.contract.ContractCount">
+   		select DISTINCT customer.customerID, customer.customerName, customer.customerAge, customer.customerGender, COUNT(contract.insuranceID) "insuranceCount"
+		from customer
+        inner join contract on customer.customerID = contract.customerID;
+   </select>
+   <!-- 가입자 수 확인 -->
+   <select id="InsuranceContractList" resultType="com.insurance.model.contract.ContractCount">
+   		select DISTINCT insurance.insuranceID, insurance.insuranceName, insurance.kind, COUNT(contract.customerID) "customerCount"
+		from insurance
+        inner join contract on insurance.insuranceID = contract.insuranceID;
+   </select>
+ 	
+</mapper>

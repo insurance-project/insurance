@@ -4,12 +4,15 @@ use Insurance;
 show tables;
 
 select * from insurance;
-select * from customer;
+select * from predictProfit;
+select * from salePerform;
 
 select insuranceID, insuranceName, kind, premium, premiumRate, warranty, rewardCost, rewardRate
       from insurance where insuranceID = 2;
  update insurance set insuranceName = '1234', kind = 'Car', premium = 1, premiumRate = 1, warranty = 1, rewardCost = 1, rewardRate = 1 where insuranceID = 1;
 /*insurance, predictProfit, allowStandard, salePerform, customer, additionalInfo, accident, reward*/
+update insurance set salePerformID = 1 where insuranceID = 1;
+
 
 create table insurance (
 insuranceID int auto_increment not null primary key,
@@ -44,8 +47,8 @@ customerGender int not null
 
 create table salePerform(
 salePerformID int auto_increment not null primary key,
-profit int not null,
-subscribers int not null,
+profit int,
+subscribers int,
 totalProfit int
 );
 
@@ -80,6 +83,7 @@ FOREIGN KEY (accidentID) REFERENCES accident(accidentID) ON UPDATE CASCADE
 create table contract(
 	customerID int not null,
     insuranceID int,
+    judge tinyint(1),
     FOREIGN KEY (customerID) REFERENCES customer(customerID) ON UPDATE CASCADE,
     FOREIGN KEY (insuranceID) REFERENCES insurance(insuranceID) ON UPDATE CASCADE
 );
@@ -87,13 +91,7 @@ create table contract(
 select contract.customerID, COUNT(contract.insuranceID) "insuranceCount"
 from contract
 group by contract.customerID;
-
-select DISTINCT insurance.insuranceID, insurance.insuranceName, insurance.kind, COUNT(contract.customerID) "customerCount"
-		from insurance
-        inner join contract on insurance.insuranceID = contract.insuranceID;
-        
-select * from contractCount;
-        
+ 
 select DISTINCT customer.customerID, customer.customerName, customer.customerAge, customer.customerGender, COUNT(contract.insuranceID) "insuranceCount"
 		from customer
         inner join contract on customer.customerID = contract.customerID;
