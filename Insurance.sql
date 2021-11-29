@@ -4,6 +4,11 @@ use Insurance;
 show tables;
 
 select * from insurance;
+select * from customer;
+
+select insuranceID, insuranceName, kind, premium, premiumRate, warranty, rewardCost, rewardRate
+      from insurance where insuranceID = 2;
+ update insurance set insuranceName = '1234', kind = 'Car', premium = 1, premiumRate = 1, warranty = 1, rewardCost = 1, rewardRate = 1 where insuranceID = 1;
 /*insurance, predictProfit, allowStandard, salePerform, customer, additionalInfo, accident, reward*/
 
 create table insurance (
@@ -51,18 +56,7 @@ customerJob varchar(30) not null,
 customerName varchar(30) not null,
 customerGender varchar(30) not null,
 phoneNumber varchar(30) not null,
-residentNumber varchar(30) not null,
-additionalInfoID int,
-insuranceID int,
-FOREIGN KEY (additionalInfoID) REFERENCES additionalInfo(additionalInfoID) ON UPDATE CASCADE,
-FOREIGN KEY (insuranceID) REFERENCES insurance(insuranceID) ON UPDATE CASCADE
-);
-
-create table additionalInfo (
-additionalInfoID int auto_increment not null primary key,
-carGrade int,
-buildingGrade int,
-diseaseGrade int
+residentNumber varchar(30) not null
 );
 
 create table accident (
@@ -82,3 +76,24 @@ rewardPrice int not null,
 accidentID int not null,
 FOREIGN KEY (accidentID) REFERENCES accident(accidentID) ON UPDATE CASCADE
 );
+
+create table contract(
+	customerID int not null,
+    insuranceID int,
+    FOREIGN KEY (customerID) REFERENCES customer(customerID) ON UPDATE CASCADE,
+    FOREIGN KEY (insuranceID) REFERENCES insurance(insuranceID) ON UPDATE CASCADE
+);
+
+select contract.customerID, COUNT(contract.insuranceID) "insuranceCount"
+from contract
+group by contract.customerID;
+
+select DISTINCT insurance.insuranceID, insurance.insuranceName, insurance.kind, COUNT(contract.customerID) "customerCount"
+		from insurance
+        inner join contract on insurance.insuranceID = contract.insuranceID;
+        
+select * from contractCount;
+        
+select DISTINCT customer.customerID, customer.customerName, customer.customerAge, customer.customerGender, COUNT(contract.insuranceID) "insuranceCount"
+		from customer
+        inner join contract on customer.customerID = contract.customerID;

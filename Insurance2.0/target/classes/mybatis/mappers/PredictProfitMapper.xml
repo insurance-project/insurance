@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.insurance.dao.PredictProfitDAO">
+<insert id="InsertPredictProfit"
+      parameterType="com.insurance.model.insurance.PredictProfit">
+      INSERT INTO PredictProfit (
+      predictProfitID, profit, subscribers, totalProfit      
+      ) VALUES (
+      #{predictProfitID}, #{profit}, #{subscribers},  #{totalProfit}
+      )
+   </insert>  
+    
+</mapper>
