@@ -33,7 +33,7 @@
      totalProfit = #{totalProfit}
      where salePerformID = #{salePerformID}
    </update>
-   B = insurance
+   <!--
    	<resultMap type="com.insurance.model.insurance.Insurance" id="Insurance">
 	    <result column="insuranceID" property="insuranceID"/>
 	    <result column="insuranceName" property="insuranceName"/>
@@ -47,19 +47,21 @@
 	    <result column="totalProfit" property="totalProfit"/>
 	    <collection property="Insurance" resultMap="Insurance"/>
 	</resultMap>
-	 
+	  
 	<select id="SelectInsuranceSaleInfo" parameterType="SalePerform" resultMap="SalePerform">
 	   	select DISTINCT insurance.insuranceID, insurance.insuranceName, insurance.kind, salePerform.profit, salePerform.subscribers, salePerform.totalProfit
 		from insurance
         left join salePerform on insurance.salePerformID = salePerform.salePerformID
         where salePerform.salePerformID = #{salePerformID}
 	</select>
-	   
+	  
    
    <select id="SelectInsuranceSaleInfo"
       resultType="com.insurance.model.insurance.SalePerform">
       
    </select>
+   
+     -->
    
    
 </mapper>
