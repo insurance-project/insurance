@@ -25,10 +25,8 @@ rewardCost int not null,
 rewardRate float not null,
 predictProfitID int,
 allowStandardID int,
-salePerformID int,
 FOREIGN KEY (predictProfitID) REFERENCES predictProfit(predictProfitID) ON UPDATE CASCADE,
-FOREIGN KEY (allowStandardID) REFERENCES allowStandard(allowStandardID) ON UPDATE CASCADE,
-FOREIGN KEY (salePerformID) REFERENCES salePerform(salePerformID) ON UPDATE CASCADE
+FOREIGN KEY (allowStandardID) REFERENCES allowStandard(allowStandardID) ON UPDATE CASCADE
 );
 
 create table predictProfit (
@@ -43,13 +41,6 @@ allowStandardID int auto_increment not null primary key,
 customerMinAge int not null,
 customerMaxAge int not null,
 customerGender int not null
-);
-
-create table salePerform(
-salePerformID int auto_increment not null primary key,
-profit int,
-subscribers int,
-totalProfit int
 );
 
 create table customer (
