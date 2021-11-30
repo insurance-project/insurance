@@ -32,7 +32,7 @@
 				  </thead>
 				  <!-- receipt, contract join? -->
 				  <tbody>
-					 <c:forEach items="${receiptList}" var="contractList" varStatus="status">
+					 <c:forEach items="${receiptList}" var="receiptList" varStatus="status">
 						<tr class="odd">
 							<td><c:out value="${status.count}"/></td>
 							<td><a href="payment?no=${receiptList.getAccidentID()}">

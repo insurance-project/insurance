@@ -33,7 +33,7 @@
 				  </thead>
 				  <!-- customer+contract join + contract에서 judge==null인 값만 출력해야 합니다. 매퍼에서 join할 때 조건문에 "where contract.judge is null" 추가해주세요-->
 				  <tbody> 
-				    <c:forEach items="${judgeList}" var="customerList" varStatus="status">
+				    <c:forEach items="${judgeList}" var="judgeList" varStatus="status">
 						<tr class="odd">
 							<td><c:out value="${status.count}"/></td>
 							<td><a href="contractJudge?no=${judgeList.getCustomerID()}">
