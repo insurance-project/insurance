@@ -6,7 +6,14 @@ public class Contract {
 	
 	private int customerID;
 	private int insuranceID;
+	private boolean judge;
 	
+	public boolean isJudge() {
+		return judge;
+	}
+	public void setJudge(boolean judge) {
+		this.judge = judge;
+	}
 	public int getCustomerID() {
 		return customerID;
 	}
