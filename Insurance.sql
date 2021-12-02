@@ -3,16 +3,19 @@ create database Insurance;
 use Insurance;
 show tables;
 
-select * from insurance;
-select * from predictProfit;
-select * from salePerform;
+create table predictProfit (
+predictProfitID int auto_increment not null primary key,
+profit int not null,
+subscribers int not null,
+totalProfit int
+);
 
-select insuranceID, insuranceName, kind, premium, premiumRate, warranty, rewardCost, rewardRate
-      from insurance where insuranceID = 2;
- update insurance set insuranceName = '1234', kind = 'Car', premium = 1, premiumRate = 1, warranty = 1, rewardCost = 1, rewardRate = 1 where insuranceID = 1;
-/*insurance, predictProfit, allowStandard, salePerform, customer, additionalInfo, accident, reward*/
-update insurance set salePerformID = 1 where insuranceID = 1;
-
+create table allowStandard(
+allowStandardID int primary key,  /*바꿈*/
+customerMinAge int not null,
+customerMaxAge int not null,
+customerGender int not null
+);
 
 create table insurance (
 insuranceID int auto_increment not null primary key,
@@ -27,20 +30,6 @@ predictProfitID int,
 allowStandardID int,
 FOREIGN KEY (predictProfitID) REFERENCES predictProfit(predictProfitID) ON UPDATE CASCADE,
 FOREIGN KEY (allowStandardID) REFERENCES allowStandard(allowStandardID) ON UPDATE CASCADE
-);
-
-create table predictProfit (
-predictProfitID int auto_increment not null primary key,
-profit int not null,
-subscribers int not null,
-totalProfit int
-);
-
-create table allowStandard(
-allowStandardID int auto_increment not null primary key,
-customerMinAge int not null,
-customerMaxAge int not null,
-customerGender int not null
 );
 
 create table customer (
@@ -72,11 +61,10 @@ FOREIGN KEY (accidentID) REFERENCES accident(accidentID) ON UPDATE CASCADE
 );
 
 create table contract(
+	contractID int auto_increment not null primary key,/*바꿈*/
 	customerID int not null,
     insuranceID int,
-    judge tinyint(1),
-    FOREIGN KEY (customerID) REFERENCES customer(customerID) ON UPDATE CASCADE,
-    FOREIGN KEY (insuranceID) REFERENCES insurance(insuranceID) ON UPDATE CASCADE
+    judge int /*바꿈*/  
 );
 
 select contract.customerID, COUNT(contract.insuranceID) "insuranceCount"
@@ -86,3 +74,13 @@ group by contract.customerID;
 select DISTINCT customer.customerID, customer.customerName, customer.customerAge, customer.customerGender, COUNT(contract.insuranceID) "insuranceCount"
 		from customer
         inner join contract on customer.customerID = contract.customerID;
+
+select insuranceID, insuranceName, kind, warranty, premium
+		from insurance
+        where allowStandardID is null;  
+select * from insurance;
+select * from customer;
+select * from allowStandard;
+select * from contract;
+SELECT * FROM Insurance;
+        
