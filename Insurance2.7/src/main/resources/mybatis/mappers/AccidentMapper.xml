@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.insurance.dao.AccidentDAO">
+
+  	<!-- 특정 고객이 계약한 보험 리스트 보기 -->
+	<select id="SelectContractInsuranceList" resultType="com.insurance.model.insurance.Insurance">
+		select distinct insurance.insuranceID, insurance.insuranceName, insurance.kind, insurance.premium, insurance.warranty
+		from insurance
+        inner join contract on insurance.insuranceID = contract.insuranceID
+        where contract.judge = 1
+        and contract.customerID = #{customerID};
+	</select>
+	
+	<!-- 계약 ID 가져오기 -->
+	<select id="SelectContractID"  parameterType="com.insurance.model.contract.Contract" resultType="int">
+		select contract.contractID
+		from contract
+        where contract.insuranceID = #{insuranceID}
+        and contract.customerID = #{customerID};
+	</select>
+	
+	<!-- 계약에서 고객 이름, 보험 이름 가져오기 -->
+	<select id="SelectContract"  parameterType="com.insurance.dto.ContractDTO" resultType="com.insurance.dto.ContractDTO">
+		select customer.customerName, insurance.insuranceName
+		from contract
+		inner join customer on contract.customerID = customer.customerID
+		inner join insurance on contract.insuranceID = insurance.insuranceID
+		where contract.contractID = #{contractID}
+	</select>
+	
+	<!-- 사고 데이터 입력 -->
+	<insert id="InsertAccident" parameterType="com.insurance.model.accident.Accident">
+		insert into accident(
+			accidentKind, accidentDate, damagePrice, contingency, customerID
+		) values (
+		#{accidentKind}, #{accidentDate}, #{damagePrice}, #{contingency}, #{customerID}
+		)
+   </insert>
+</mapper>
