@@ -42,6 +42,12 @@ phoneNumber varchar(30) not null,
 residentNumber varchar(30) not null
 );
 
+create table reward (
+rewardID int auto_increment not null primary key,
+rewardDate varchar(30) not null,
+rewardPrice int not null
+);
+
 create table accident (
 accidentID int auto_increment not null primary key,
 accidentDate varchar(30) not null,
@@ -49,15 +55,9 @@ accidentKind varchar(30) not null,
 damagePrice int,
 contingency boolean not null,
 customerID int not null,
-FOREIGN KEY (customerID) REFERENCES customer(customerID) ON UPDATE CASCADE
-);
-
-create table reward (
-rewardID int auto_increment not null primary key,
-rewardDate varchar(30) not null,
-rewardPrice int not null,
-accidentID int not null,
-FOREIGN KEY (accidentID) REFERENCES accident(accidentID) ON UPDATE CASCADE
+rewardID int,
+FOREIGN KEY (customerID) REFERENCES customer(customerID) ON UPDATE CASCADE,
+FOREIGN KEY (rewardID) REFERENCES reward(rewardID) ON UPDATE CASCADE
 );
 
 create table contract(
@@ -66,14 +66,14 @@ create table contract(
     insuranceID int,
     judge int /*바꿈*/  
 );
-
 select contract.customerID, COUNT(contract.insuranceID) "insuranceCount"
 from contract
 group by contract.customerID;
  
 select DISTINCT customer.customerID, customer.customerName, customer.customerAge, customer.customerGender, COUNT(contract.insuranceID) "insuranceCount"
 		from customer
-        inner join contract on customer.customerID = contract.customerID;
+        inner join contract on customer.customerID = contract.customerID
+        group by contract.customerID;
 
 select insuranceID, insuranceName, kind, warranty, premium
 		from insurance
@@ -83,4 +83,8 @@ select * from customer;
 select * from allowStandard;
 select * from contract;
 SELECT * FROM Insurance;
-        
+
+SELECT * FROM Insurance where allowstandardID is not null;
+
+select * from contract;
+select * from contract where judge!=1 and customerID=1;

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.insurance.dao.AllowStandardDAO">
+<insert id="InsertAllowStandard"
+      parameterType="com.insurance.model.insurance.AllowStandard">
+      INSERT INTO allowStandard (
+      allowStandardID, customerMinAge, customerMaxAge, customerGender      
+      ) VALUES (
+      #{allowStandardID}, #{customerMinAge}, #{customerMaxAge},  #{customerGender}
+      )
+   </insert>  
+   <delete id="DeleteAllowStandard" parameterType="int">
+      delete from allowStandard
+      where allowStandardID = #{allowStandardID}
+   </delete>
+   
+   	<!--인수 설정 안된 보험만 보기-->
+   <select id="NonAllowStandardInsuranceList" resultType="com.insurance.model.insurance.Insurance">
+   		select insuranceID, insuranceName, kind, warranty, premium
+		from insurance
+        where allowStandardID is null
+   </select>
+   
+    <select id="SelectAllowStandardInfo"
+      resultType="com.insurance.model.insurance.AllowStandard">
+      select customerMinAge, customerMaxAge, customerGender
+      from allowStandard 
+      where allowStandardID = #{allowStandardID}
+   </select>
+    
+</mapper>
