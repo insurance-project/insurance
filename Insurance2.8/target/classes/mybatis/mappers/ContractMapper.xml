@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.insurance.dao.ContractDAO">
+   <!-- 계약 하기 -->
+   <insert id="InsertContractInfo" parameterType="com.insurance.model.contract.Contract">
+		insert into contract( customerID, insuranceID	) 
+		values ( #{customerID}, #{insuranceID} )
+   </insert>
+ 
+ 	<!-- 손님 계약 보기 (심사 통과한 고객만 출력) -->
+   <select id="CustomerContractList" resultType="com.insurance.dto.ContractDTO">
+   		select DISTINCT customer.customerID, customer.customerName, customer.customerAge, customer.customerGender, COUNT(contract.insuranceID) as "insuranceCount"
+		from customer
+        inner join contract on customer.customerID = contract.customerID
+        where contract.judge = 1
+        group by customer.customerID        
+   </select>
+   
+   <!-- 심사 통과한 가입자 수 확인 -->
+   <select id="InsuranceContractList" resultType="com.insurance.dto.ContractDTO">
+   		select DISTINCT insurance.insuranceID, insurance.insuranceName, insurance.kind, insurance.premium, 
+		COUNT(contract.customerID) as "customerCount", insurance.premium*COUNT(contract.customerID) as "totalProfit"
+		from insurance
+		inner join contract on insurance.insuranceID = contract.insuranceID
+		where contract.judge = 1
+		group by insurance.insuranceID
+   </select>
+   
+ 	<!-- 계약한 사람중 심사 안된 손님, 그 손님이 신청한 보험 보기 -->
+   <select id="NonJudgeCustomerList" resultType="com.insurance.dto.ContractDTO">
+   		select C.customerID, C.customerName, C.customerAge, C.customerGender, I.insuranceID, I.insuranceName, CO.contractID
+		from customer C
+        inner join contract CO on C.customerID = CO.customerID
+        inner join insurance I on I.insuranceID = CO.insuranceID
+        where CO.judge is null
+   </select>
+   
+   <!-- 계약이 심사 완료되었다고 설정 -->
+   <update id="SetContractJudge"
+      parameterType="com.insurance.model.contract.Contract">
+      update contract set judge = #{judge}   
+      where contractID = #{contractID}
+   </update>
+   
+   <!-- 계약 중복 체크 -->
+   <select id="CheckContract" resultType="int">
+		select count(*) 
+		from contract 
+		where (judge=1 or judge is null) and insuranceID=#{insuranceID} and customerID=#{customerID}
+	</select>
+   
+</mapper>

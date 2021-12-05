@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.insurance.dao.InsuranceDAO">
+<insert id="InsertInsurance"
+      parameterType="com.insurance.model.insurance.Insurance">
+      INSERT INTO Insurance (
+      insuranceName, premium,
+      warranty, rewardCost, kind, premiumRate, rewardRate
+      ) VALUES (
+      #{insuranceName}, #{premium},  #{warranty}, #{rewardCost}, #{kind}, #{premiumRate}, #{rewardRate}
+      )
+   </insert>
+   
+   <update id="UpdateInsuranceInfo"
+      parameterType="com.insurance.model.insurance.Insurance">
+      update insurance set insuranceName = #{insuranceName},
+      kind = #{kind}, premium = #{premium}, premiumRate = #{premiumRate}, 
+      warranty = #{warranty}, rewardCost = #{rewardCost}, rewardRate = #{rewardRate}
+      where insuranceID = #{insuranceID}
+   </update>
+   
+   <select id="SelectInsuranceList" resultType="com.insurance.model.insurance.Insurance" parameterType="com.insurance.model.insurance.Insurance">
+        SELECT * FROM Insurance
+   </select>
+   
+    <select id="SelectInsuranceStandardList" resultType="com.insurance.model.insurance.Insurance" parameterType="com.insurance.model.insurance.Insurance">
+        SELECT * FROM Insurance
+        where allowstandardID is not null
+    </select>
+    
+    <select id="SelectInsuranceInfo"
+      resultType="com.insurance.model.insurance.Insurance">
+      select insuranceID, insuranceName, kind, premium, premiumRate, warranty, rewardCost, rewardRate
+      from insurance 
+      where insuranceID = #{insuranceID}
+   </select>
+   
+   <delete id="DeleteInsurance" parameterType="int">
+      delete from insurance
+      where insuranceID = #{insuranceID}
+   </delete>
+   
+    <update id="UpdateAllowStandard"
+      parameterType="com.insurance.model.insurance.Insurance">
+      update insurance set allowStandardID = #{allowStandardID}
+      where insuranceID = #{insuranceID}
+   </update>
+    
+</mapper>
