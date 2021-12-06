@@ -11,7 +11,7 @@ totalProfit int
 );
 
 create table allowStandard(
-allowStandardID int primary key,  /*바꿈*/
+allowStandardID int primary key,
 customerMinAge int not null,
 customerMaxAge int not null,
 customerGender int not null
@@ -61,30 +61,8 @@ FOREIGN KEY (rewardID) REFERENCES reward(rewardID) ON UPDATE CASCADE
 );
 
 create table contract(
-	contractID int auto_increment not null primary key,/*바꿈*/
+	contractID int auto_increment not null primary key,
 	customerID int not null,
     insuranceID int,
-    judge int /*바꿈*/  
+    judge int
 );
-select contract.customerID, COUNT(contract.insuranceID) "insuranceCount"
-from contract
-group by contract.customerID;
- 
-select DISTINCT customer.customerID, customer.customerName, customer.customerAge, customer.customerGender, COUNT(contract.insuranceID) "insuranceCount"
-		from customer
-        inner join contract on customer.customerID = contract.customerID
-        group by contract.customerID;
-
-select insuranceID, insuranceName, kind, warranty, premium
-		from insurance
-        where allowStandardID is null;  
-select * from insurance;
-select * from customer;
-select * from allowStandard;
-select * from contract;
-SELECT * FROM Insurance;
-
-SELECT * FROM Insurance where allowstandardID is not null;
-
-select * from contract;
-select * from contract where judge!=1 and customerID=1;
